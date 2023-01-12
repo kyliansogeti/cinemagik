@@ -7,7 +7,7 @@ const SearchBar = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
     const searchMovies = (query) => {
-        const API_URL = `http://www.omdbapi.com/?&apiKey=${API_KEY}&s=${query}`;
+        const API_URL = `https://www.omdbapi.com/?&apiKey=${API_KEY}&s=${query}`;
     
         axios.get(API_URL)
             .then(response => {
