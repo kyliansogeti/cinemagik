@@ -3,13 +3,17 @@ import './SearchBar.css';
 import axios from 'axios';
 
 const SearchBar = () => {
-    const API_KEY = '6c3a2d45';
+    const API_TOKEN = '23c99f61-2beb-4bdf-b759-5c89fd6a47cb';
     const [searchQuery, setSearchQuery] = useState('');
 
     const searchMovies = (query) => {
-        const API_URL = `https://www.omdbapi.com/?&apiKey=${API_KEY}&s=${query}`;
+        const API_URL = `https://www.myapimovies.com/api/v1/movie/search&s=${query}`;
     
-        axios.get(API_URL)
+        axios.get(API_URL, {
+            headers: {
+              'Authorization': `Bearer ${API_TOKEN}`
+            }
+            })
             .then(response => {
                 // handle the response here
                 // setMovies(response.data);
