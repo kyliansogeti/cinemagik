@@ -1,0 +1,20 @@
+header .logo-container{
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+header .logo-container a{
+    display: inline-flex;
+    align-items: center;
+    gap: .25rem;
+}
+
+header .logo-icon{
+    height: 2rem;
+}
+
+header .logo-txt{
+    font-size: 2rem;
+    color: white;
+}
