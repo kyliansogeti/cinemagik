@@ -5,24 +5,35 @@ import axios from 'axios';
 const SearchBar = ({ handleCallback }) => {
     const [movies, setMovies] = useState([]);
 
-    const searchMovies = (query) => {
-        const API_KEY = '6c3a2d45';
-        const API_URL = `https://www.omdbapi.com/?&apiKey=${API_KEY}&s=${query}`;
-        // const API_URL = 'placeholder-movies.json';
+    const initMovies = () => {
+        const API_KEY = '4a94ef431d4a47daad6f0b508a26c544';
+        const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`;
     
         axios.get(API_URL)
             .then(response => {
-                setMovies(response.data);
+                setMovies(response.data.results);
             })
             .catch(error => {
                 console.log(`Error: ${error}`);
             });
     }
 
-    // fix has to be written for pageload, show initial movies
     useEffect(() => {
-        searchMovies('and');
+        initMovies();
     }, []);
+
+    const searchMovies = (query) => {
+        const API_KEY = '4a94ef431d4a47daad6f0b508a26c544';
+        const API_URL = `https://api.themoviedb.org/3/search/movie/?api_key=${API_KEY}&query=${query}`;
+    
+        axios.get(API_URL)
+            .then(response => {
+                setMovies(response.data.results);
+            })
+            .catch(error => {
+                console.log(`Error: ${error}`);
+            });
+    }
 
     useEffect(() => {
         handleCallback(movies);
@@ -31,6 +42,10 @@ const SearchBar = ({ handleCallback }) => {
     const handleChange = (e) => {
         if (e.target.value.length >= 3) {
             searchMovies(e.target.value);
+        }
+
+        if (e.target.value.length === 0) {
+            initMovies();
         }
     }
 

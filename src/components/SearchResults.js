@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Movie from './Movie';
+import './SearchResults.css';
 
 const SearchResults = ({ movies }) => {
-    const searchResults = movies.Search;
+    const [results, setResults] = useState(null);
+
+    useEffect(() => {
+        setResults(movies);
+    }, [movies]);
 
     return (
         <section className="search-results">
-            {searchResults.map((movie, index) => {
-                // Hier API call met imdbID om de bijbehorende data op te halen?
+            {results && results.slice(0, 5).map((movie, index) => {
                 return (
-                    <div key={index}>
-                        <p>imdbID: {movie.imdbID}</p>
-                        <p>Poster: {movie.Poster}</p>
-                        <p>Title: {movie.Title}</p>
-                        <p>Type: {movie.Type}</p>
-                        <p>Year: {movie.Year}</p>
-                    </div>
+                    <Movie key={index} details={movie} />
                 );
             })}
+            {results && results.length === 0 ? <div className="no-results">We couldn't find any movies 🤷‍♂️</div> : null}
         </section>
     );
 }

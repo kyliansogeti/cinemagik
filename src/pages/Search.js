@@ -4,7 +4,7 @@ import SearchBar from '../components/SearchBar';
 import SearchResults from '../components/SearchResults';
 
 const Search = () => {
-    const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState(null);
 
     const handleCallback = movies => {
         setMovies(movies);
@@ -13,7 +13,7 @@ const Search = () => {
     return (
         <div>
             <SearchBar handleCallback={handleCallback} />
-            {movies.Search && <SearchResults movies={movies} />}
+            {movies && <SearchResults movies={movies} />}
         </div>
     );
 }

@@ -1,0 +1,46 @@
+.movie-container{
+    overflow: hidden;
+    border-radius: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    min-height: 12rem;
+    display: flex;
+    justify-content: space-between
+}
+
+.movie-container .movie-poster{
+    min-height: 100%;
+    width: 30%;
+    object-fit: cover;
+}
+
+.movie-container .movie-details{
+    width: 70%;
+    padding: 1.5rem;
+    font-size: 1.5rem;
+    color: white;
+    line-height: 1.5rem;
+    font-weight: bold;
+}
+
+.movie-details .movie-details-title{
+    margin-bottom: .5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+.movie-details .movie-details-body{
+    display: -webkit-box;
+}
+
+.movie-container.reading-less .movie-details-body{
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+.movie-details .read-more-btn{
+    font-size: .75rem;
+    text-align: center;
+}
