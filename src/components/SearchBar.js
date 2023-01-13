@@ -1,38 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SearchBar.css';
 import axios from 'axios';
 
-const SearchBar = () => {
-    const API_TOKEN = '23c99f61-2beb-4bdf-b759-5c89fd6a47cb';
-    const [searchQuery, setSearchQuery] = useState('');
+const SearchBar = ({ handleCallback }) => {
+    const [movies, setMovies] = useState([]);
 
     const searchMovies = (query) => {
-        const API_URL = `https://www.myapimovies.com/api/v1/movie/search&s=${query}`;
+        const API_KEY = '6c3a2d45';
+        const API_URL = `https://www.omdbapi.com/?&apiKey=${API_KEY}&s=${query}`;
+        // const API_URL = 'placeholder-movies.json';
     
-        axios.get(API_URL, {
-            headers: {
-              'Authorization': `Bearer ${API_TOKEN}`
-            }
-            })
+        axios.get(API_URL)
             .then(response => {
-                // handle the response here
-                // setMovies(response.data);
-                console.log(response.data);
+                setMovies(response.data);
             })
             .catch(error => {
                 console.log(`Error: ${error}`);
             });
     }
 
+    // fix has to be written for pageload, show initial movies
+    useEffect(() => {
+        searchMovies('and');
+    }, []);
+
+    useEffect(() => {
+        handleCallback(movies);
+    }, [movies, handleCallback]);
+
+    const handleChange = (e) => {
+        if (e.target.value.length >= 3) {
+            searchMovies(e.target.value);
+        }
+    }
+
     return (
-        <section>
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                searchMovies(searchQuery);
-            }}>
-                <input type="text" onChange={(e) => setSearchQuery(e.target.value)}/>
-                <button type="submit">Search</button>
-            </form>
+        <section className="search-section">
+            <input type="text" placeholder="Search" className="searchbar" onChange={handleChange}/>
         </section>
     );
 }
